@@ -4,6 +4,8 @@ service logaligroup {
 
     entity ProductSet as projection on entities.Products;
     entity DetailSet as projection on entities.Details;
+
+    
     
     
 
