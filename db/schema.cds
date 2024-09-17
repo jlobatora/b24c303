@@ -140,13 +140,12 @@ entity Months {
 
 
 entity ProductReviews {
-        //key ID           : UUID;
-    key ID           : String;
-        rating       : Integer;
-        comment      : String;
-        creationDate : Date;
-        user         : String(40);
-        review       : String;
+        key ID           : UUID;
+        Name      : String;
+        Rating    : Integer;
+        Comment   : String;
+        CreatedAt : Date;
+
 };
 
 
@@ -183,3 +182,34 @@ entity Cars {
         virtual discount_1 : Decimal;
         virtual discount_2 : Decimal;
 };
+
+
+//Entidades de pryeccion o de select
+
+entity SelProducts  as select from Products;
+
+entity SelProducts1 as
+    select from Products {
+        *
+    };
+
+entity SelProducts2 as
+    select from Products {
+        Name,
+        Price,
+        Quantity
+    };
+
+entity SelProducts3 as
+    select from Products
+    left join ProductReviews
+        on Products.Name = ProductReviews.Name
+    {
+        Rating,
+        Products.Name,
+        sum(Price) as TotalPrice
+    }
+    group by
+        Rating,
+        Products.Name
+    order by Rating;
